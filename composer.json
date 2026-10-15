@@ -1,8 +1,6 @@
 {
-    
     "type": "project",
-        "name": "a-thepuma/r507",
-        "description": "Application de gestion de contacts avec Symfony",
+    "license": "proprietary",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {

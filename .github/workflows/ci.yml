@@ -1,29 +1,29 @@
-name: CI 
+name: CI
 
-on:  
-  push:    
-    branches: [ master, develop ]  
-  pull_request:    
-    branches: [ master ] 
+on:
+    push:
+        branches: [master, develop]
+    pull_request:
+        branches: [master]
 
-jobs:  
-  test:    
-    runs-on: ubuntu-latest        
-    steps:    
-    - uses: actions/checkout@v3        
-    
-    - name: Setup PHP      
-      uses: shivammathur/setup-php@v2      
-      with:        
-        php-version: '8.2'        
-        extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom        
-        coverage: xdebug        
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
 
-    - name: Validate composer.json and composer.lock      
-      run: composer validate --strict        
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: "8.2"
+                  extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom
+                  coverage: xdebug
 
-    - name: Install dependencies      
-      run: composer install --prefer-dist --no-progress        
+            - name: Validate composer.json and composer.lock
+              run: composer validate --strict
 
-    - name: Run tests      
-      run: php bin/phpunit
+            - name: Install dependencies
+              run: composer install --prefer-dist --no-progress
+
+            - name: Run tests
+              run: php bin/phpunit
