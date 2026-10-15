@@ -1,4 +1,6 @@
 {
+    "name": "a-thepuma/r507",
+    "description": "Mon projet Symfony R507",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "dev",
