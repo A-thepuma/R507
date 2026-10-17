@@ -1,0 +1,1 @@
+{"version":2,"defects":{"App\\Tests\\Controller\\ContactControllerTest::testContactFormDisplay":7,"App\\Tests\\Controller\\ContactControllerTest::testContactFormSubmission":7},"times":{"App\\Tests\\Controller\\ContactControllerTest::testContactFormDisplay":1.815,"App\\Tests\\Controller\\ContactControllerTest::testContactFormSubmission":0.622}}

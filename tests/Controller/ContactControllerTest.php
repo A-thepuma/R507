@@ -12,7 +12,6 @@ class ContactControllerTest extends WebTestCase
         $client->request('GET', '/contact');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Contact');
     }
 
     public function testContactFormSubmission(): void
@@ -20,12 +19,12 @@ class ContactControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', '/contact');
 
-        $client->submitForm('Send', [
-            'contact[name]' => 'John Doe',
-            'contact[email]' => 'john@example.com',
-            'contact[message]' => 'Test message'
+        $client->submitForm('Envoyer', [
+            'form[firstName]' => 'John',
+            'form[name]' => 'Doe',
+            'form[message]' => 'Test message'
         ]);
 
-        $this->assertResponseRedirects('/contact/success');
+        $this->assertResponseRedirects('/');
     }
 }

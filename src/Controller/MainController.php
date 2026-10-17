@@ -77,4 +77,33 @@ final class MainController extends AbstractController
             'contacts' => $contacts,
         ]);
     }
+
+    #[Route('/contact', name: 'contact')]
+    public function contact(Request $request, EntityManagerInterface $em): Response
+    {
+        $contact = new Contact();
+
+        $form = $this->createFormBuilder($contact)
+            ->add('firstName', null, ['label' => 'Prénom'])
+            ->add('name', null, ['label' => 'Nom'])
+            ->add('message', null, ['label' => 'Message'])
+            ->add('send', SubmitType::class, ['label' => 'Envoyer'])
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contact->setCreatedAt(new \DateTimeImmutable('now'));
+
+            $contact->setStatus('pending');
+
+            $em->persist($contact);
+            $em->flush();
+
+            return $this->redirectToRoute('main_index');
+        }
+
+        return $this->render('main/index.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }
