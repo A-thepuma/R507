@@ -10,6 +10,10 @@ jobs:
     test:
         runs-on: ubuntu-latest
 
+        env:
+            DATABASE_URL: "mysql://root:root@127.0.0.1:3306/symfony_test"
+            APP_ENV: test
+
         services:
             mysql:
                 image: mysql:8.0
