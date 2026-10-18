@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1792238211">
-  <project timestamp="1792238211" name="Clover Coverage">
+<coverage generated="1792355000">
+  <project timestamp="1792355000" name="Clover Coverage">
     <package name="App\Controller">
       <file name="C:\Users\andre\Documents\S5\Chaine prod\TP2\R507\src\Controller\ContactCrudController.php">
         <class name="App\Controller\ContactCrudController" namespace="App\Controller">
