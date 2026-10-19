@@ -62,9 +62,19 @@ jobs:
             - name: Upload coverage to Codecov
               uses: codecov/codecov-action@v4
               with:
-                file: ./coverage.xml
-                token: ${{ secrets.CODECOV_TOKEN }}
-                fail_ci_if_error: true
+                  file: ./coverage.xml
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  fail_ci_if_error: true
 
-                      # - name: Run tests
-                      #   run: php bin/phpunit
+            - name: PHPStan Static Analysis
+              run: vendor/bin/phpstan analyse
+
+            - name: PHP CS Fixer
+              run: vendor/bin/php-cs-fixer fix --dry-run --diff
+
+            - name: Security Check
+              run: |
+                  symfony check:security
+
+                     # - name: Run tests
+                     #   run: php bin/phpunit

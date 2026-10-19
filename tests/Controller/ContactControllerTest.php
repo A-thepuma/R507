@@ -22,7 +22,7 @@ class ContactControllerTest extends WebTestCase
         $client->submitForm('Envoyer', [
             'form[firstName]' => 'John',
             'form[name]' => 'Doe',
-            'form[message]' => 'Test message'
+            'form[message]' => 'Test message',
         ]);
 
         $this->assertResponseRedirects('/');

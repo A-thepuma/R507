@@ -8,8 +8,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @extends AbstractCrudController<Contact>
+ */
 class ContactCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -29,7 +33,7 @@ class ContactCrudController extends AbstractCrudController
         $markAsArchived = Action::new('markAsArchived', 'Marquer comme archivé')
             ->linkToCrudAction('markAsArchived')
             ->displayIf(function (Contact $object) {
-                return $object->getStatus() == 'treated';
+                return 'treated' == $object->getStatus();
             })
             ->addCssClass('btn btn-primary')
         ;
@@ -40,12 +44,13 @@ class ContactCrudController extends AbstractCrudController
             ->add(Crud::PAGE_DETAIL, $markAsArchived);
     }
 
-    public function markAsTreated(Request $request, EntityManagerInterface $em)
+    public function markAsTreated(Request $request, EntityManagerInterface $em): RedirectResponse
     {
+        /** @var Contact|null $object */
         $object = $em->find(Contact::class, $request->query->get('entityId'));
 
         if (empty($object)) {
-            $this->addFlash('danger',"Le contact n'a pas été trouvé");
+            $this->addFlash('danger', "Le contact n'a pas été trouvé");
 
             return $this->redirectToRoute('admin_contact_index');
         }
@@ -53,17 +58,18 @@ class ContactCrudController extends AbstractCrudController
         $object->setStatus('treated');
         $em->flush();
 
-        $this->addFlash('success',"Le contact a été marqué comme traité");
+        $this->addFlash('success', 'Le contact a été marqué comme traité');
 
         return $this->redirectToRoute('admin_contact_detail', ['entityId' => $object->getId()]);
     }
 
-    public function markAsArchived(Request $request, EntityManagerInterface $em)
+    public function markAsArchived(Request $request, EntityManagerInterface $em): RedirectResponse
     {
+        /** @var Contact|null $object */
         $object = $em->find(Contact::class, $request->query->get('entityId'));
 
         if (empty($object)) {
-            $this->addFlash('danger',"Le contact n'a pas été trouvé");
+            $this->addFlash('danger', "Le contact n'a pas été trouvé");
 
             return $this->redirectToRoute('admin_contact_index');
         }
@@ -71,7 +77,7 @@ class ContactCrudController extends AbstractCrudController
         $object->setStatus('archived');
         $em->flush();
 
-        $this->addFlash('success',"Le contact a été marqué comme archivé");
+        $this->addFlash('success', 'Le contact a été marqué comme archivé');
 
         return $this->redirectToRoute('admin_contact_detail', ['entityId' => $object->getId()]);
     }
